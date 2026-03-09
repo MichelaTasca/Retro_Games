@@ -130,7 +130,7 @@ class SnakeGame:
             self.direction = "S"
 
     def run(self) -> None:
-        """Loop principale del gioco."""
+        """Loop principale gioco."""
         while True:
             self.handle_input()
             if self.running:
