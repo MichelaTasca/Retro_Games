@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Distribution / packaging
+dist/
+build/
+*.exe
+*.msi
+
+# Unit test / coverage reports
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MyPy cache
+.mypy_cache/
+
+# Pylint/Flake8
+.pylint.d/
