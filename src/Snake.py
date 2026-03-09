@@ -26,7 +26,7 @@ GRID: Tuple[int, int, int] = (30, 50, 30)
 
 # pylint: disable=too-many-instance-attributes
 class SnakeGame:
-    """Classe per la logica e il rendering del gioco Snake."""
+    """Classe per logica e il rendering del gioco Snake."""
 
     def __init__(self) -> None:
         """Inizializza Pygame e lo stato del gioco."""
