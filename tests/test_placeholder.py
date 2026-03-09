@@ -3,4 +3,3 @@
 def test_smoke() -> None:
     """Test di fumo per verificare che la pipeline funzioni."""
     assert True
-
