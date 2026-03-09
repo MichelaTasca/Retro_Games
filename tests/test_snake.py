@@ -2,7 +2,9 @@
 """Modulo di test per SnakeGame."""
 
 from unittest.mock import patch
+
 import pytest
+
 from src.snake import SIZE, SnakeGame
 
 
