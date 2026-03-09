@@ -7,7 +7,6 @@ Sistemato per eliminare errori E501 e problemi di importazione.
 from unittest.mock import patch
 
 import pytest
-
 from src.snake import SIZE, SnakeGame
 
 

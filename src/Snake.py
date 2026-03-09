@@ -71,7 +71,6 @@ class SnakeGame:
             pygame.draw.line(self.screen, GRID, (i, 0), (i, HEIGHT))
             pygame.draw.line(self.screen, GRID, (0, i), (WIDTH, i))
 
-        # Disegno mela spezzato per evitare E501
         mela_rect = (self.apple_pos[0], self.apple_pos[1], SIZE, SIZE)
         pygame.draw.rect(self.screen, NEON_RED, mela_rect)
 
