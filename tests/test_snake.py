@@ -13,9 +13,9 @@ from src.snake import SIZE, snake_game
 @pytest.fixture
 def game() -> snake_game:
     """Fixture per inizializzare il gioco senza interfaccia grafica."""
-    with patch("pygame.display.set_mode"), patch("pygame.display.set_caption"), patch(
-        "pygame.font.Font"
-    ):
+    with patch("pygame.display.set_mode"), \
+         patch("pygame.display.set_caption"), \
+         patch("pygame.font.Font"):
         return snake_game()
 
 
