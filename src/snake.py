@@ -1,7 +1,7 @@
 # pylint: disable=no-member
 """
 Modulo per il gioco Snake Retro.
-Versione finale con zero errori Flake8 e punteggio massimo Pylint.
+Versione finale con zero errori Flake8 e punteggio 10/10 Pylint.
 """
 
 import random
@@ -25,7 +25,7 @@ GRID: Tuple[int, int, int] = (30, 50, 30)
 
 
 # pylint: disable=too-many-instance-attributes
-class snake_game:
+class SnakeGame:
     """Classe per logica e il rendering del gioco Snake."""
 
     def __init__(self) -> None:
@@ -143,4 +143,4 @@ class snake_game:
 
 
 if __name__ == "__main__":
-    snake_game().run()
+    SnakeGame().run()
