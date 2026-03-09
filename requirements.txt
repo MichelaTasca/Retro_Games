@@ -1,8 +1,1 @@
-pygame-ce
-pytest
-pytest-cov
-pylint
-flake8
-mypy
-black
-isort
+﻿pygame-ce
