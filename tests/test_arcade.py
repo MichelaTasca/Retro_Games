@@ -4,7 +4,7 @@ ArcadeMenu Test Module.
 Testing menu navigation and sub-process launching.
 """
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pygame
 import pytest
