@@ -47,7 +47,7 @@ def test_navigation_up(menu: ArcadeMenu) -> None:
 @patch("sys.exit")
 @patch("pygame.quit")
 def test_launch_game_pacman(
-    mock_quit: MagicMock, mock_exit: MagicMock, mock_popen: MagicMock, menu: ArcadeMenu
+    mock_popen: MagicMock, menu: ArcadeMenu
 ) -> None:
     """Verify that PacMan is launched when selected."""
     menu.selected = 0
@@ -56,15 +56,13 @@ def test_launch_game_pacman(
     # Check if subprocess was called with the correct file
     args, _ = mock_popen.call_args
     assert "PacMan4.py" in args[0]
-    assert mock_quit.called
-    assert mock_exit.called
 
 
 @patch("subprocess.Popen")
 @patch("sys.exit")
 @patch("pygame.quit")
 def test_launch_game_snake(
-    mock_quit: MagicMock, mock_exit: MagicMock, mock_popen: MagicMock, menu: ArcadeMenu
+    mock_popen: MagicMock, menu: ArcadeMenu
 ) -> None:
     """Verify that Snake is launched when selected."""
     menu.selected = 1

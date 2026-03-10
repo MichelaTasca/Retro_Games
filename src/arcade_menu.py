@@ -9,7 +9,7 @@ from typing import List, Tuple
 
 import pygame
 
-# Graphical constants (Type Aliases for clarity)
+# Graphical constants
 Color = Tuple[int, int, int]
 
 W_WDT: int = 700
@@ -35,25 +35,25 @@ class ArcadeMenu:
         self.scr = pygame.display.set_mode((W_WDT, WIND_HGT))
         self.clock = pygame.time.Clock()
 
-        # Font initialization
-        self.title_font = pygame.font.SysFont("Press Start 2P", 36, bold=True)
-        self.menu_font = pygame.font.SysFont("Press Start 2P", 20)
-        self.info_font = pygame.font.SysFont("Press Start 2P", 14)
+        self.fonts = {
+            "title": pygame.font.SysFont("Press Start 2P", 36, bold=True),
+            "menu": pygame.font.SysFont("Press Start 2P", 20),
+            "info": pygame.font.SysFont("Press Start 2P", 14),
+        }
 
         self.options: List[str] = ["PAC-MAN", "SNAKE"]
         self.selected: int = 0
 
         # Create surface for the scanline effect
-        self.scanline_surface = pygame.Surface(
+        self.scanlines = pygame.Surface(
             (W_WDT, WIND_HGT), pygame.SRCALPHA  # pylint: disable=no-member
         )
         for y in range(0, WIND_HGT, 2):
-            pygame.draw.line(self.scanline_surface, (0, 0, 0, 40), (0, y), (W_WDT, y))
+            pygame.draw.line(self.scanlines, (0, 0, 0, 40), (0, y), (W_WDT, y))
 
     def draw_arcade_machine(self) -> None:
         """Draw the aesthetic shell of the arcade machine."""
         scr = self.scr
-        width = W_WDT
 
         # Main cabinet body
         pygame.draw.rect(scr, DK_G, (150, 100, 400, 500), border_radius=15)
@@ -61,8 +61,8 @@ class ArcadeMenu:
 
         # Upper part (marquee)
         pygame.draw.rect(scr, NEON_BLUE, (150, 70, 400, 40), border_radius=10)
-        title = self.title_font.render("RETRO ARCADE", True, NEON_YELLOW)
-        scr.blit(title, title.get_rect(center=(width // 2, 90)))
+        title = self.fonts["title"].render("RETRO ARCADE", True, NEON_YELLOW)
+        scr.blit(title, title.get_rect(center=(W_WDT // 2, 90)))
 
         # Central screen area
         pygame.draw.rect(scr, BLACK, (180, 140, 340, 320))
@@ -83,14 +83,14 @@ class ArcadeMenu:
 
         for i, option in enumerate(self.options):
             color = NEON_GREEN if i == self.selected else NEON_BLUE
-            txt = self.menu_font.render(option, True, color)
+            txt = self.fonts["menu"].render(option, True, color)
             self.scr.blit(txt, txt.get_rect(center=(W_WDT // 2, 220 + i * 60)))
 
         info_txt = "↑ ↓ to choose | ENTER to start"
-        info = self.info_font.render(info_txt, True, (100, 100, 100))
+        info = self.fonts["info"].render(info_txt, True, (100, 100, 100))
         self.scr.blit(info, info.get_rect(center=(W_WDT // 2, 620)))
 
-        self.scr.blit(self.scanline_surface, (0, 0))
+        self.scr.blit(self.scanlines, (0, 0))
         pygame.display.flip()
 
     def launch_game(self) -> None:
@@ -99,8 +99,8 @@ class ArcadeMenu:
         script_to_launch = game_files.get(self.selected)
 
         if script_to_launch:
-            # Popen preferred to avoid blocking the parent process if necessary
-            subprocess.Popen([sys.executable, script_to_launch])
+            with subprocess.Popen([sys.executable, script_to_launch]):
+                pass
 
         pygame.quit()  # pylint: disable=no-member
         sys.exit()
