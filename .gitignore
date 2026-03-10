@@ -25,3 +25,8 @@ htmlcov/
 
 # Pylint/Flake8
 .pylint.d/
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
