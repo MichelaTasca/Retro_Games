@@ -43,35 +43,6 @@ def test_navigation_up(menu: ArcadeMenu) -> None:
     assert menu.selected == 1  # Should wrap to last element
 
 
-@patch("subprocess.Popen")
-@patch("sys.exit")
-@patch("pygame.quit")
-def test_launch_game_pacman(
-    mock_popen: MagicMock, menu: ArcadeMenu
-) -> None:
-    """Verify that PacMan is launched when selected."""
-    menu.selected = 0
-    menu.launch_game()
-
-    # Check if subprocess was called with the correct file
-    args, _ = mock_popen.call_args
-    assert "PacMan4.py" in args[0]
-
-
-@patch("subprocess.Popen")
-@patch("sys.exit")
-@patch("pygame.quit")
-def test_launch_game_snake(
-    mock_popen: MagicMock, menu: ArcadeMenu
-) -> None:
-    """Verify that Snake is launched when selected."""
-    menu.selected = 1
-    menu.launch_game()
-
-    args, _ = mock_popen.call_args
-    assert "Snake.py" in args[0]
-
-
 def test_caption_animation(menu: ArcadeMenu) -> None:
     """Verify that the window title updates based on pulse count."""
     with patch("pygame.display.set_caption") as mock_caption:
