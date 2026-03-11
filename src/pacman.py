@@ -105,12 +105,15 @@ class PacManGame:
         for y, row in enumerate(self.level):
             for x, tile in enumerate(row):
                 if tile == "1":
-                    pygame.draw.rect(self.screen, BLUE, (x * T_S, y * T_S, T_S, T_S))
+                    pygame.draw.rect(
+                        self.screen, BLUE, (x * T_S, y * T_S, T_S, T_S))
         for dx, dy in self.dots:
-            pygame.draw.circle(self.screen, WH, (dx * T_S + 12, dy * T_S + 12), 4)
+            pygame.draw.circle(
+                self.screen, WH, (dx * T_S + 12, dy * T_S + 12), 4)
 
         pygame.draw.circle(
-            self.screen, YLW, (self.p_pos[0] * T_S + 12, self.p_pos[1] * T_S + 12), 10
+            self.screen, YLW, (
+                self.p_pos[0] * T_S + 12, self.p_pos[1] * T_S + 12), 10
         )
         pygame.draw.circle(
             self.screen,
@@ -144,7 +147,8 @@ class PacManGame:
         )
         self.screen.blit(
             self.small_font.render("MENU", True, WH),
-            self.small_font.render("MENU", True, WH).get_rect(center=menu_rect.center),
+            self.small_font.render(
+                "MENU", True, WH).get_rect(center=menu_rect.center),
         )
 
         pygame.display.flip()

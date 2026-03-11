@@ -4,14 +4,14 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
+
 from src.pacman import W_H, W_W, PacManGame
 
 
 @pytest.fixture
 def game():
     """Fixture without GUI."""
-    with patch("pygame.display.set_mode"), patch(
-        "pygame.display.set_caption"), patch(
+    with patch("pygame.display.set_mode"), patch("pygame.display.set_caption"), patch(
         "pygame.font.SysFont"
     ):
         return PacManGame()

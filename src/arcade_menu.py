@@ -40,10 +40,10 @@ class ArcadeMenu:
             "title": pygame.font.SysFont(
                 ["Press Start 2P", "Arial", "sans-serif"], 36, bold=True
             ),
-            "menu": pygame.font.SysFont(
-                ["Press Start 2P", "Arial", "sans-serif"], 20),
-            "info": pygame.font.SysFont(
-                ["Press Start 2P", "Arial", "sans-serif"], 14),
+            "menu": pygame.font.SysFont([
+                "Press Start 2P", "Arial", "sans-serif"], 20),
+            "info": pygame.font.SysFont([
+                "Press Start 2P", "Arial", "sans-serif"], 14),
         }
 
         self.options: List[str] = ["PAC-MAN", "SNAKE"]
