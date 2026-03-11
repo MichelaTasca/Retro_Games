@@ -1,3 +1,4 @@
+# pylint: disable=no-member, duplicate-code
 """
 Module for managing a retro 80s-style Arcade Menu.
 Handles the selection between Pac-Man and Snake.
@@ -95,7 +96,7 @@ class ArcadeMenu:
 
     def launch_game(self) -> None:
         """Launch the sub-process for the selected game and close the menu."""
-        game_files = {0: "pacman.py", 1: "snake.py"}
+        game_files = {0: "src/pacman.py", 1: "src/snake.py"}
         script_to_launch = game_files.get(self.selected)
 
         if script_to_launch:
@@ -107,19 +108,15 @@ class ArcadeMenu:
 
     def run(self) -> int:
         """Main program loop. Returns the selected game index."""
-        pulse = 0
         while True:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:  # pylint: disable=no-member
-                    pygame.quit()  # pylint: disable=no-member
+                if event.type == pygame.QUIT:
+                    pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN:  # pylint: disable=no-member
-                    choice = self._handle_keypress(event.key)
-                    if choice is not None:
-                        return choice
-
-            pulse += 1
-            self._update_caption(pulse)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        return self.selected  # Ritorna la scelta al main.py
+                    self._handle_keypress(event.key)
             self.draw_menu()
             self.clock.tick(30)
 
