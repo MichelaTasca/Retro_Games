@@ -2,7 +2,7 @@
 
 from unittest.mock import patch
 
-from src.main import main
+from main import main
 
 
 def test_main_launch_pacman():
