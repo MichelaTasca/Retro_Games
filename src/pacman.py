@@ -1,4 +1,5 @@
 # pylint: disable=no-member
+# pylint: disable=too-many-instance-attributes
 """Pac-Man Retro Game Module."""
 
 import random
