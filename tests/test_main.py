@@ -2,7 +2,6 @@
 
 from unittest.mock import patch
 
-# Rimosso import pytest perché non usato direttamente
 from main import main
 
 
