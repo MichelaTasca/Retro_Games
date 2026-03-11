@@ -3,6 +3,7 @@
 """Pac-Man Retro Game Module."""
 
 import random
+
 import pygame
 
 # Game Constants
@@ -38,8 +39,7 @@ class PacManGame:
 
     def generate_pacman_map(self):
         """Procedural maze generation."""
-        maze = [["1" for _ in range(GRID_WIDTH)]
-                for _ in range(GRID_HEIGHT)]
+        maze = [["1" for _ in range(GRID_WIDTH)] for _ in range(GRID_HEIGHT)]
         for y in range(2, GRID_HEIGHT - 2, 4):
             for x in range(1, GRID_WIDTH - 1):
                 maze[y][x] = "0"
@@ -53,8 +53,12 @@ class PacManGame:
     def reset_game(self):
         """Reset internal state."""
         self.level = self.generate_pacman_map()
-        self.dots = {(x, y) for y, r in enumerate(self.level)
-                     for x, t in enumerate(r) if t == "0"}
+        self.dots = {
+            (x, y)
+            for y, r in enumerate(self.level)
+            for x, t in enumerate(r)
+            if t == "0"
+        }
         self.p_pos, self.g_pos = [1, 1], [19, 19]
         self.gf = [float(self.g_pos[0]), float(self.g_pos[1])]
         self.running, self.score = True, 0
