@@ -1,7 +1,7 @@
 # pylint: disable=no-member
 """Main module of the Retro Games project."""
 
-import sys  # Deve essere usato!
+import sys
 
 import pygame
 
@@ -24,3 +24,7 @@ def main() -> None:
             SnakeGame().run()
         else:
             sys.exit()
+
+
+if __name__ == "__main__":
+    main()

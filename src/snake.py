@@ -182,7 +182,7 @@ class SnakeGame:
         elif key == pygame.K_s and self.direction != "W":
             self.direction = "S"
 
-    def run(self) -> None:
+    def run(self, once: bool = False) -> None:
         """Main game loop."""
         while True:
             if self.running:
@@ -195,6 +195,8 @@ class SnakeGame:
                 self.game_over_screen()
                 if not self.game_over_state and not self.running:
                     return
+            if once:
+                break
 
 
 if __name__ == "__main__":
