@@ -37,10 +37,10 @@ A collection of classic arcade games developed in Python. The software includes 
 ## Development and Testing
 If you want to contribute or run the test suite, you must install the development dependencies:
    ```bash
-   pytest --cov-config=.coveragec --cov=src --cov=main 
+   pip install -r requirements_dev.txt
    ```
 The project uses `pytest` for testing. To run the tests with coverage analysis, use the following command:
    ```bash
-   pytest --cov=src --cov=main tests/
+   pytest --cov-config=.coveragec --cov=src --cov=main 
    ```
 Code quality and formatting are maintained using `pylint`, `flake8`, `mypy`, `black`, and `isort`.
