@@ -1,6 +1,7 @@
 """Main module of the Retro Games project."""
 
 import sys
+
 import pygame
 
 from src.arcade_menu import ArcadeMenu
