@@ -5,7 +5,6 @@ from unittest.mock import patch
 
 import pytest
 
-# NOTA: Importiamo W_W e W_H come definiti nel gioco
 from src.pacman import W_H, W_W, PacManGame
 
 
