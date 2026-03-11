@@ -1,7 +1,8 @@
+# pylint: disable=no-member
 """Main module of the Retro Games project."""
 
+import sys
 import pygame
-
 from src.arcade_menu import ArcadeMenu
 from src.pacman import PacManGame
 from src.snake import SnakeGame
