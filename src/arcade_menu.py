@@ -95,7 +95,7 @@ class ArcadeMenu:
 
     def launch_game(self) -> None:
         """Launch the sub-process for the selected game and close the menu."""
-        game_files = {0: "PacMan4.py", 1: "Snake.py"}
+        game_files = {0: "pacman.py", 1: "snake.py"}
         script_to_launch = game_files.get(self.selected)
 
         if script_to_launch:
@@ -105,8 +105,8 @@ class ArcadeMenu:
         pygame.quit()  # pylint: disable=no-member
         sys.exit()
 
-    def run(self) -> None:
-        """Main program loop."""
+    def run(self) -> int:
+        """Main program loop. Returns the selected game index."""
         pulse = 0
         while True:
             for event in pygame.event.get():
@@ -114,21 +114,27 @@ class ArcadeMenu:
                     pygame.quit()  # pylint: disable=no-member
                     sys.exit()
                 if event.type == pygame.KEYDOWN:  # pylint: disable=no-member
-                    self._handle_keypress(event.key)
+                    choice = self._handle_keypress(event.key)
+                    if choice is not None:
+                        return choice
 
             pulse += 1
             self._update_caption(pulse)
             self.draw_menu()
             self.clock.tick(30)
 
-    def _handle_keypress(self, key: int) -> None:
-        """Handle keyboard input for navigation."""
+    def _handle_keypress(self, key: int) -> int | None:
+        """
+        Handle keyboard input for navigation.
+        Returns the selected index if ENTER is pressed, otherwise None.
+        """
         if key == pygame.K_UP:  # pylint: disable=no-member
             self.selected = (self.selected - 1) % len(self.options)
         elif key == pygame.K_DOWN:  # pylint: disable=no-member
             self.selected = (self.selected + 1) % len(self.options)
         elif key == pygame.K_RETURN:  # pylint: disable=no-member
-            self.launch_game()
+            return self.selected
+        return None
 
     def _update_caption(self, pulse: int) -> None:
         """Create an animated effect in the window title."""
