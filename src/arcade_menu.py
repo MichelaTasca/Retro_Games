@@ -37,9 +37,11 @@ class ArcadeMenu:
         self.clock = pygame.time.Clock()
 
         self.fonts = {
-            "title": pygame.font.SysFont("Press Start 2P", 36, bold=True),
-            "menu": pygame.font.SysFont("Press Start 2P", 20),
-            "info": pygame.font.SysFont("Press Start 2P", 14),
+            "title": pygame.font.SysFont(
+                ["Press Start 2P", "Arial", "sans-serif"], 36, bold=True
+            ),
+            "menu": pygame.font.SysFont(["Press Start 2P", "Arial", "sans-serif"], 20),
+            "info": pygame.font.SysFont(["Press Start 2P", "Arial", "sans-serif"], 14),
         }
 
         self.options: List[str] = ["PAC-MAN", "SNAKE"]

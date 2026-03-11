@@ -11,7 +11,6 @@ def test_main_launch_pacman():
         "main.PacManGame.run"
     ) as mock_pacman, patch("main.pygame.quit"), patch("main.pygame.display.quit"):
 
-        # Facciamo sollevare SystemExit per simulare una chiusura pulita
         mock_menu.side_effect = [0, SystemExit]
 
         try:

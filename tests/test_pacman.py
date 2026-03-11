@@ -1,7 +1,7 @@
 # pylint: disable=redefined-outer-name, import-error, no-member
 """PacManGame Test Module."""
 
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -46,3 +46,22 @@ def test_constants():
     """Verify constants are imported correctly."""
     assert W_W > 0
     assert W_H > 0
+
+
+def test_pacman_advanced_logic(game):
+    """Test movement, dot collection, and ghost movement logic."""
+    game.move_ghost()
+
+    game.dots = set()
+    game.update()
+    assert game.game_over_state is True
+
+    with patch("pygame.draw.rect"), patch("pygame.draw.circle"), patch(
+        "pygame.display.flip"
+    ):
+
+        game.screen.blit = MagicMock()
+        game.draw()
+
+        with patch.object(game, "_wait_", return_value=False):
+            game.game_over_screen()
