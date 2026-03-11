@@ -41,6 +41,6 @@ If you want to contribute or run the test suite, you must install the developmen
    ```
 The project uses `pytest` for testing. To run the tests with coverage analysis, use the following command:
    ```bash
-   pytest --cov=src --cov=main tests/
+   pytest --cov-config=.coveragec --cov=src --cov=main 
    ```
 Code quality and formatting are maintained using `pylint`, `flake8`, `mypy`, `black`, and `isort`.
