@@ -39,6 +39,6 @@ def test_apple_collision(game: SnakeGame) -> None:
     game.x_pos[0] = 100
     game.y_pos[0] = 100
     game.apple_pos = (100, 100)
-    game.check_logic()
+    game.update()
     assert game.score == 1
     assert game.parts == 3
