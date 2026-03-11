@@ -5,14 +5,14 @@ from unittest.mock import patch
 
 import pygame
 import pytest
+
 from src.arcade_menu import ArcadeMenu
 
 
 @pytest.fixture
 def menu():
     """Fixture to initialize the menu with mocked Pygame components."""
-    with patch("pygame.display.set_mode"), patch(
-        "pygame.display.set_caption"), patch(
+    with patch("pygame.display.set_mode"), patch("pygame.display.set_caption"), patch(
         "pygame.font.SysFont"
     ):
         return ArcadeMenu()
