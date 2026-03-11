@@ -1,5 +1,6 @@
 # Retro Games
 A collection of classic arcade games developed in Python. The software includes an 80s-style arcade cabinet menu to select and launch the available games.
+
 ---
 ## Included Games
 * **Pac-Man**: Classic maze game.
