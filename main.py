@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 """Main module of the Retro Games project."""
 
 import pygame

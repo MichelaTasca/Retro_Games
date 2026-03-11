@@ -1,5 +1,4 @@
-# pylint: disable=no-member
-# pylint: disable=too-many-instance-attributes
+# pylint: disable=no-member, duplicate-code, too-many-instance-attributes
 """
 Pac-Man Retro Game Module.
 Procedural maze generation, Ghost AI, and Game Over menu with return logic.

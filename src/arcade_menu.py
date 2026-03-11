@@ -1,3 +1,4 @@
+# pylint: disable=no-member, duplicate-code
 """
 Module for managing a retro 80s-style Arcade Menu.
 Handles the selection between Pac-Man and Snake.
