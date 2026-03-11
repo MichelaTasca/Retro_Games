@@ -1,7 +1,6 @@
 """Main module of the Retro Games project."""
 
 import sys
-
 import pygame
 
 from src.arcade_menu import ArcadeMenu
@@ -23,7 +22,7 @@ def main() -> None:
     pygame.quit()  # pylint: disable=no-member
 
     # Route to the appropriate game based on the choice returned by the menu
-    # Calling run() directly on the instance avoids mypy assignment errors
+    # Calling run() directly avoids Mypy "Incompatible types" assignment errors
     if choice == 0:
         PacManGame().run()
     elif choice == 1:
