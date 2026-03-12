@@ -1,4 +1,5 @@
-# pylint: disable=no-member, duplicate-code, too-many-instance-attributes
+# pylint: disable=no-member, duplicate-code, too-many-instance-attributes, too-many-arguments, too-many-positional-arguments
+# pylint: disable=redefined-outer-name, import-error, protected-access, no-member, duplicate-code
 """
 Retro Snake Game Module.
 Menu, Single Player (with walls) & Two-Player modes.
@@ -351,7 +352,10 @@ class SnakeGame:
                         self.in_menu = True
                         waiting = False
                     elif menu_rect.collidepoint(event.pos):
-                        subprocess.Popen([sys.executable, "src/arcade_menu.py"])
+                        with subprocess.Popen(
+                            [sys.executable, "arcade_menu.py"]
+                        ):  # o "main.py"
+                            pass
                         pygame.quit()
                         sys.exit()
             self.clock.tick(30)

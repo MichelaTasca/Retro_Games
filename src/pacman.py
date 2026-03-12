@@ -1,4 +1,5 @@
 # pylint: disable=no-member, duplicate-code, too-many-instance-attributes
+# pylint: disable=redefined-outer-name, import-error, protected-access, no-member, duplicate-code
 """
 Pac-Man Retro Game Module.
 Fixed grid-based logic, animations, buffered input, Ghost AI,
@@ -222,8 +223,10 @@ class PacManGame:
                         self.reset_game()
                         return True
                     if menu_rect.collidepoint(event.pos):
-
-                        subprocess.Popen([sys.executable, "src/arcade_menu.py"])
+                        with subprocess.Popen(
+                            [sys.executable, "arcade_menu.py"]
+                        ):  # o "main.py"
+                            pass
                         pygame.quit()
                         sys.exit()
             self.clock.tick(30)

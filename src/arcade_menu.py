@@ -140,4 +140,5 @@ if __name__ == "__main__":
     script_to_launch = game_files.get(scelta)
 
     if script_to_launch:
-        subprocess.Popen([sys.executable, script_to_launch])
+        with subprocess.Popen([sys.executable, script_to_launch]):
+            pass
