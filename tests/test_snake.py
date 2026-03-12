@@ -57,8 +57,8 @@ def test_snake_collisions_and_ui(game: SnakeGame) -> None:
 
     with patch("pygame.draw.rect"), patch("pygame.draw.line"), patch(
         "pygame.display.flip"
-    ):
-        game.screen.blit = MagicMock()
+    ), patch.object(game.screen, "blit"):
+
         game.draw()
 
         with patch.object(game, "_wait_"):
