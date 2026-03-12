@@ -83,19 +83,19 @@ def test_snake_input_and_events(game: SnakeGame) -> None:
 
 def test_snake_wait_menu_exit(game: SnakeGame) -> None:
     """Test that clicking the menu button triggers subprocess and exits."""
-    with patch("pygame.event.get") as mock_get, patch(
-        "subprocess.Popen"
-    ) as mock_popen, patch("sys.exit", side_effect=SystemExit), patch("pygame.quit"):
+    simulated_click = MagicMock()
+    simulated_click.type = pygame.MOUSEBUTTONDOWN
+    simulated_click.pos = (250, 370)
 
-        menu_click = MagicMock()
-        menu_click.type = pygame.MOUSEBUTTONDOWN
-        menu_click.pos = (250, 370)
-        mock_get.return_value = [menu_click]
+    with patch("subprocess.Popen") as process_mock, \
+         patch("pygame.event.get", return_value=[simulated_click]), \
+         patch("sys.exit", side_effect=SystemExit), \
+         patch("pygame.quit"):
 
-        retry_rect = pygame.Rect(170, 290, 160, 40)
-        menu_rect = pygame.Rect(170, 350, 160, 40)
+        retry_btn = pygame.Rect(170, 290, 160, 40)
+        menu_btn = pygame.Rect(170, 350, 160, 40)
 
         with pytest.raises(SystemExit):
-            game._wait_(retry_rect, menu_rect)
-
-        mock_popen.assert_called_once()
+            game._wait_(retry_btn, menu_btn)
+            
+        process_mock.assert_called_once()
