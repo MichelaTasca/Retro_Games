@@ -5,6 +5,7 @@ from unittest.mock import MagicMock, patch
 
 import pygame
 import pytest
+
 from src.arcade_menu import ArcadeMenu
 
 
