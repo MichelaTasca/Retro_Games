@@ -65,13 +65,3 @@ def test_rendering_methods(menu):
 
         menu.draw_menu()
         menu.draw_arcade_machine()
-
-
-def test_launch_game_pacman(menu):
-    """Test that launching the game calls subprocess"""
-    menu.selected = 0
-    with patch("subprocess.Popen") as mp, patch("sys.exit") as mock_exit:
-        menu.launch_game()
-        args, _ = mp.call_args
-        assert "src/pacman.py" in args[0]
-        assert mock_exit.called

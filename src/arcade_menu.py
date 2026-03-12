@@ -4,7 +4,6 @@ Module for managing a retro 80s-style Arcade Menu.
 Handles the selection between Pac-Man and Snake.
 """
 
-import subprocess
 import sys
 from typing import List, Tuple
 
@@ -95,18 +94,6 @@ class ArcadeMenu:
 
         self.scr.blit(self.scanlines, (0, 0))
         pygame.display.flip()
-
-    def launch_game(self) -> None:
-        """Launch the sub-process for the selected game and close the menu."""
-        game_files = {0: "src/pacman.py", 1: "src/snake.py"}
-        script_to_launch = game_files.get(self.selected)
-
-        if script_to_launch:
-            with subprocess.Popen([sys.executable, script_to_launch]):
-                pass
-
-        pygame.quit()  # pylint: disable=no-member
-        sys.exit()
 
     def run(self) -> int:
         """Main program loop. Returns the selected game index."""
