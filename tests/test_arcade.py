@@ -33,14 +33,35 @@ def test_navigation_down(menu):
 
 
 def test_handle_keypress_logic(menu):
-    """Verify that ENTER returns the current selection index."""
+    """Verify that ENTER returns the current selection index and arrows navigate."""
     menu.selected = 0
     menu._handle_keypress(pygame.K_DOWN)
     assert menu.selected == 1
+
+    result = menu._handle_keypress(pygame.K_RETURN)
+    assert result == 1
+
     menu._handle_keypress(pygame.K_UP)
     assert menu.selected == 0
-    menu._handle_keypress(pygame.K_UP)
-    assert menu.selected == 1
+
+    result = menu._handle_keypress(pygame.K_RETURN)
+    assert result == 0
+
+
+def test_run_returns_selected(menu):
+    """Verify that the run method returns the selected index on ENTER."""
+    menu.selected = 1
+
+    mock_event = MagicMock()
+    mock_event.type = pygame.KEYDOWN
+    mock_event.key = pygame.K_RETURN
+
+    with patch("pygame.event.get", return_value=[mock_event]), patch.object(
+        menu, "draw_menu"
+    ), patch.object(menu.clock, "tick"):
+
+        result = menu.run()
+        assert result == 1
 
 
 def test_caption_animation(menu):

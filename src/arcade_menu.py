@@ -4,6 +4,7 @@ Module for managing a retro 80s-style Arcade Menu.
 Handles the selection between Pac-Man and Snake.
 """
 
+import subprocess
 import sys
 from typing import List, Tuple
 
@@ -104,7 +105,7 @@ class ArcadeMenu:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
-                        return self.selected  # Ritorna la scelta al main.py
+                        return self.selected  # Ritorna la scelta al blocco __main__
                     self._handle_keypress(event.key)
             self.draw_menu()
             self.clock.tick(30)
@@ -131,4 +132,12 @@ class ArcadeMenu:
 
 
 if __name__ == "__main__":
-    ArcadeMenu().run()
+    scelta = ArcadeMenu().run()
+
+    pygame.quit()
+
+    game_files = {0: "src/pacman.py", 1: "src/snake.py"}
+    script_to_launch = game_files.get(scelta)
+
+    if script_to_launch:
+        subprocess.Popen([sys.executable, script_to_launch])
