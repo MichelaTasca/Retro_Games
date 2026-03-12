@@ -1,8 +1,9 @@
-# pylint: disable=redefined-outer-name, import-error, no-member
+# pylint: disable=redefined-outer-name, import-error, protected-access, no-member
 """PacManGame Test Module."""
 
 from unittest.mock import MagicMock, patch
 
+import pygame
 import pytest
 
 from src.pacman import W_H, W_W, PacManGame
@@ -26,11 +27,29 @@ def test_initial_state(game):
 
 def test_move_pacman_valid(game):
     """Test valid movement."""
-    game.level = ["111", "100", "111"]
+    game.level = [list("111"), list("100"), list("111")]
     game.p_pos = [1, 1]
     game.direction = "RIGHT"
+    game.next_dir = "RIGHT"
     game.move_pacman()
     assert game.p_pos[0] == 2
+
+
+def test_pacman_buffered_movement(game):
+    """Test that next_dir falls back to current direction if blocked."""
+    game.level = [list("1111"), list("1001"), list("1101"), list("1111")]
+    game.p_pos = [1, 1]
+    game.direction = "RIGHT"
+
+    game.next_dir = "UP"
+    game.move_pacman()
+    assert game.p_pos == [2, 1]
+    assert game.direction == "RIGHT"
+
+    game.next_dir = "DOWN"
+    game.move_pacman()
+    assert game.p_pos == [2, 2]
+    assert game.direction == "DOWN"
 
 
 def test_ghost_collision_ends_game(game):
@@ -57,11 +76,32 @@ def test_pacman_advanced_logic(game):
     assert game.game_over_state is True
 
     with patch("pygame.draw.rect"), patch("pygame.draw.circle"), patch(
-        "pygame.display.flip"
-    ):
+        "pygame.draw.polygon"
+    ), patch("pygame.display.flip"):
 
         game.screen.blit = MagicMock()
+        game.mouth_open = True
         game.draw()
 
         with patch.object(game, "_wait_", return_value=False):
             game.game_over_screen()
+
+
+def test_pacman_wait_menu_exit(game):
+    """Test that clicking the menu button triggers subprocess and exits."""
+    with patch("pygame.event.get") as mock_get, patch(
+        "subprocess.Popen"
+    ) as mock_popen, patch("sys.exit", side_effect=SystemExit), patch("pygame.quit"):
+
+        menu_click = MagicMock()
+        menu_click.type = pygame.MOUSEBUTTONDOWN
+        menu_click.pos = (250, 380)
+        mock_get.return_value = [menu_click]
+
+        retry_rect = pygame.Rect(182, 302, 160, 40)
+        menu_rect = pygame.Rect(182, 362, 160, 40)
+
+        with pytest.raises(SystemExit):
+            game._wait_(retry_rect, menu_rect)
+
+        mock_popen.assert_called_once()
