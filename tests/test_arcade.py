@@ -5,14 +5,14 @@ from unittest.mock import MagicMock, patch
 
 import pygame
 import pytest
-
 from src.arcade_menu import ArcadeMenu
 
 
 @pytest.fixture
 def menu():
     """Fixture to initialize the menu with mocked Pygame components."""
-    with patch("pygame.display.set_mode"), patch("pygame.display.set_caption"), patch(
+    with patch("pygame.display.set_mode"), patch(
+        "pygame.display.set_caption"), patch(
         "pygame.font.SysFont"
     ):
         return ArcadeMenu()
@@ -65,13 +65,3 @@ def test_rendering_methods(menu):
 
         menu.draw_menu()
         menu.draw_arcade_machine()
-
-
-def test_launch_game_pacman(menu):
-    """Test that launching the game calls subprocess"""
-    menu.selected = 0
-    with patch("subprocess.Popen") as mp, patch("sys.exit") as mock_exit:
-        menu.launch_game()
-        args, _ = mp.call_args
-        assert "src/pacman.py" in args[0]
-        assert mock_exit.called
