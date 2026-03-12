@@ -38,12 +38,14 @@ def test_handle_keypress_logic(menu):
     menu._handle_keypress(pygame.K_DOWN)
     assert menu.selected == 1
 
+    # Test esplicito del tasto INVIO
     result = menu._handle_keypress(pygame.K_RETURN)
     assert result == 1
 
     menu._handle_keypress(pygame.K_UP)
     assert menu.selected == 0
 
+    # Test esplicito del tasto INVIO dopo aver cambiato selezione
     result = menu._handle_keypress(pygame.K_RETURN)
     assert result == 0
 
@@ -52,13 +54,19 @@ def test_run_returns_selected(menu):
     """Verify that the run method returns the selected index on ENTER."""
     menu.selected = 1
 
+    # SOLUZIONE: Sostituiamo l'intero oggetto clock con un Mock
+    # per evitare l'errore di read-only del linguaggio C in Pygame
+    menu.clock = MagicMock()
+
+    # Creiamo un finto evento di Pygame che simula la pressione di INVIO
     mock_event = MagicMock()
     mock_event.type = pygame.KEYDOWN
     mock_event.key = pygame.K_RETURN
 
+    # Eseguiamo il ciclo nascondendo event.get e draw_menu
     with patch("pygame.event.get", return_value=[mock_event]), patch.object(
         menu, "draw_menu"
-    ), patch.object(menu.clock, "tick"):
+    ):
 
         result = menu.run()
         assert result == 1
