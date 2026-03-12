@@ -87,15 +87,13 @@ def test_snake_wait_menu_exit(game: SnakeGame) -> None:
     simulated_click.type = pygame.MOUSEBUTTONDOWN
     simulated_click.pos = (250, 370)
 
-    with patch("subprocess.Popen") as process_mock, \
-         patch("pygame.event.get", return_value=[simulated_click]), \
-         patch("sys.exit", side_effect=SystemExit), \
-         patch("pygame.quit"):
+    with patch("subprocess.Popen") as process_mock, patch(
+        "pygame.event.get", return_value=[simulated_click]
+    ), patch("sys.exit", side_effect=SystemExit), patch("pygame.quit"):
 
         retry_btn = pygame.Rect(170, 290, 160, 40)
         menu_btn = pygame.Rect(170, 350, 160, 40)
 
         with pytest.raises(SystemExit):
             game._wait_(retry_btn, menu_btn)
-            
-        process_mock.assert_called_once()
+            process_mock.assert_called_once()
