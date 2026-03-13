@@ -9,6 +9,7 @@ from unittest.mock import MagicMock, patch
 
 import pygame
 import pytest
+
 from src.snake import SIZE, SnakeGame
 
 

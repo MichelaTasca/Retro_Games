@@ -6,6 +6,7 @@ from unittest.mock import MagicMock, patch
 
 import pygame
 import pytest
+
 from src.pacman import W_H, W_W, PacManGame
 
 
