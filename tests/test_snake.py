@@ -15,9 +15,10 @@ from src.snake import SIZE, SnakeGame
 @pytest.fixture
 def game() -> SnakeGame:
     """Fixture to initialize the game without GUI."""
-    with patch("pygame.display.set_mode"), patch(
-        "pygame.display.set_caption"), patch(
-        "pygame.font.Font"
+    with (
+        patch("pygame.display.set_mode"),
+        patch("pygame.display.set_caption"),
+        patch("pygame.font.Font"),
     ):
         g = SnakeGame()
         g.in_menu = False
@@ -38,9 +39,10 @@ def test_initial_state(game: SnakeGame) -> None:
 def test_snake_main_menu_1p(game: SnakeGame) -> None:
     """Test the selection of 1 Player mode from the Main Menu."""
     game.in_menu = True
-    with patch("pygame.event.get") as mock_get, patch(
-        "pygame.display.flip"), patch(
-        "pygame.draw.rect"
+    with (
+        patch("pygame.event.get") as mock_get,
+        patch("pygame.display.flip"),
+        patch("pygame.draw.rect"),
     ):
         click_event = MagicMock()
         click_event.type = pygame.MOUSEBUTTONDOWN
@@ -55,9 +57,10 @@ def test_snake_main_menu_1p(game: SnakeGame) -> None:
 def test_snake_main_menu_2p(game: SnakeGame) -> None:
     """Test the selection of 2 Players mode from the Main Menu."""
     game.in_menu = True
-    with patch("pygame.event.get") as mock_get, patch(
-        "pygame.display.flip"), patch(
-        "pygame.draw.rect"
+    with (
+        patch("pygame.event.get") as mock_get,
+        patch("pygame.display.flip"),
+        patch("pygame.draw.rect"),
     ):
         click_event = MagicMock()
         click_event.type = pygame.MOUSEBUTTONDOWN
@@ -78,10 +81,12 @@ def test_snake_run_loop_states(game: SnakeGame) -> None:
 
     game.in_menu = False
     game.running = True
-    with patch.object(game, "handle_input"), patch.object(
-        game, "move"), patch.object(
-        game, "update"
-    ), patch.object(game, "draw"):
+    with (
+        patch.object(game, "handle_input"),
+        patch.object(game, "move"),
+        patch.object(game, "update"),
+        patch.object(game, "draw"),
+    ):
         game.run(once=True)
 
     game.in_menu = False
@@ -196,9 +201,12 @@ def test_snake_collisions_and_ui(game: SnakeGame) -> None:
     game.update()
     assert game.game_over_state is True
 
-    with patch("pygame.draw.rect"), patch("pygame.draw.line"), patch(
-        "pygame.display.flip"
-    ), patch.object(game.screen, "blit"):
+    with (
+        patch("pygame.draw.rect"),
+        patch("pygame.draw.line"),
+        patch("pygame.display.flip"),
+        patch.object(game.screen, "blit"),
+    ):
         game.draw()
         with patch.object(game, "_wait_"):
             game.game_over_screen()
@@ -288,8 +296,10 @@ def test_snake_simultaneous_death(game: SnakeGame) -> None:
 def test_snake_draw_multiplayer_ui(game: SnakeGame) -> None:
     """Cover the P2 drawing logic"""
     game.num_players = 2
-    with patch("pygame.draw.rect"), patch("pygame.draw.line"), patch(
-        "pygame.display.flip"
+    with (
+        patch("pygame.draw.rect"),
+        patch("pygame.draw.line"),
+        patch("pygame.display.flip"),
     ):
         game.draw()
 
@@ -301,8 +311,10 @@ def test_snake_game_over_draw_tie(game: SnakeGame) -> None:
     """Verify the rendering of the Game Over screen in case of a tie."""
     game.num_players = 2
     game.winner = 0
-    with patch("pygame.display.flip"), patch("pygame.draw.rect"), patch.object(
-        game, "_wait_"
+    with (
+        patch("pygame.display.flip"),
+        patch("pygame.draw.rect"),
+        patch.object(game, "_wait_"),
     ):
         game.game_over_screen()
 
@@ -328,9 +340,12 @@ def test_snake_wait_menu_exit(game: SnakeGame) -> None:
     simulated_click.type = pygame.MOUSEBUTTONDOWN
     simulated_click.pos = (250, 370)
 
-    with patch("subprocess.Popen") as process_mock, patch(
-        "pygame.event.get", return_value=[simulated_click]
-    ), patch("sys.exit", side_effect=SystemExit), patch("pygame.quit"):
+    with (
+        patch("subprocess.Popen") as process_mock,
+        patch("pygame.event.get", return_value=[simulated_click]),
+        patch("sys.exit", side_effect=SystemExit),
+        patch("pygame.quit"),
+    ):
 
         retry_btn = pygame.Rect(170, 290, 160, 40)
         menu_btn = pygame.Rect(170, 350, 160, 40)
@@ -345,9 +360,11 @@ def test_snake_wait_menu_exit(game: SnakeGame) -> None:
 
 def test_snake_quit_event(game: SnakeGame) -> None:
     """Test the QUIT event handling inside handle_input."""
-    with patch("pygame.event.get") as mock_get, patch(
-        "sys.exit", side_effect=SystemExit
-    ), patch("pygame.quit"):
+    with (
+        patch("pygame.event.get") as mock_get,
+        patch("sys.exit", side_effect=SystemExit),
+        patch("pygame.quit"),
+    ):
 
         quit_event = MagicMock()
         quit_event.type = pygame.QUIT
@@ -378,9 +395,11 @@ def test_snake_quit_main_menu(game: SnakeGame) -> None:
 
 def test_snake_quit_wait(game: SnakeGame) -> None:
     """Test the QUIT event inside the _wait_ loop."""
-    with patch("pygame.event.get") as mock_get, patch(
-        "sys.exit", side_effect=SystemExit
-    ), patch("pygame.quit"):
+    with (
+        patch("pygame.event.get") as mock_get,
+        patch("sys.exit", side_effect=SystemExit),
+        patch("pygame.quit"),
+    ):
 
         quit_event = MagicMock()
         quit_event.type = pygame.QUIT
